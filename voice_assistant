@@ -1,0 +1,49 @@
+import speech_recognition as sr
+import pyttsx3
+import webbrowser
+import django
+
+print('''Ask "What can you do"\nSay BYE to Exit ''')
+
+r = sr.Recognizer()
+
+def speakText(command):
+    engine = pyttsx3.init()
+    engine.say(command)
+    engine.runAndWait()
+
+true = 2
+while(true != 1 ):
+    with sr.Microphone() as source2:
+        r.adjust_for_ambient_noise(source2, duration=0.2)
+        audio2 = r.listen(source2)
+        MyText = r.recognize_google(audio2)
+        MyText = MyText.lower()
+
+    if (MyText == "hi" or MyText == "hai" or MyText == "hay" or MyText == "what can you do"):
+        speakText("Hello, I'm sarvas. I can show these things")
+        speakText("Weather")
+        speakText("Time")
+        speakText("Astrology")
+        speakText("Calculator")
+
+    elif(MyText == "weather" or MyText == "wheather"):
+        speakText("I'm going to open a browser")
+        webbrowser.open("https://weather.com/")
+
+    elif(MyText == "time"):
+        webbrowser.open("https://e-smartclasses.blogspot.com/p/time.html")
+
+    elif(MyText == "astrology"):
+        webbrowser.open("https://www.ganeshaspeaks.com/horoscopes/daily-horoscope/")
+
+    elif(MyText == "Calculator"):
+        webbrowser.open("https://e-smartclasses.blogspot.com/p/calculator.html")
+
+    elif(MyText == "bye"):
+        true = 1
+
+    else:
+        print("Did you say "+ MyText)
+        speakText(MyText)
+
